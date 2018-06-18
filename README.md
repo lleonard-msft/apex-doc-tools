@@ -8,4 +8,6 @@ Each directory provides a separate tool, though some tools are designed to run i
 
 There may be interesting bits of code, but most of it is designed to be utilitarian.  These are generally written under deadline pressure and are maintained as needed.  
 
+Consider them works-in-progress.
+
 If you have feedback, please file issues or PRs accordingly.
