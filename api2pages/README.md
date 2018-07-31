@@ -1,4 +1,4 @@
-# Api2Pages
+# API.MD to Markdown pages
 
 This utility supports C++ documentation projects created with Doxygen, which is a great parser, but doesn't provide HTML output that easily integrates into other formats or presentations.
 
@@ -20,7 +20,7 @@ This tool is run as part of a larger process
 
     The required command-line parameter should point to the `api.md` file to be processed.
 
-4.  Copy the \\output\*.md files to the source folder for your publishing process.
+4.  Copy the `.\output\*.md` files to the source folder for your publishing process.
 
 ## Managing links
 
@@ -28,6 +28,8 @@ Both Doxygen and Moxygen do some odd things with links, which are basically unus
 
 When new links are detected, they're added to the configuration file and a relevant message is written to the console once the utility finishes.
 
-The current implementation is a work-in-progress and will likely change shortly.  
+The current implementation is a prototype and will likely change shortly.  
 
 Updated: 1 June 2018
+
+
