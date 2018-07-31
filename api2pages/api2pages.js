@@ -299,7 +299,7 @@ if ( isBlank( strFilename ) ) {
 
       // Here, we fix a moxygen rendering bug that appears when run 
       // against the SDK.  (The Methods section is incorrectly 
-      // specified as an H4, rather than an H3.  
+      // specified as an H4, rather than an H3.)  
       //
       // Note that this also does two other things: it removes the 
       // annoying backticks and chops off the rest of the declaration
@@ -490,6 +490,8 @@ process.exit();
 /*
 
 Version history:
+v0.0.5, 21 June 2018 - Additional cleanup to improve generation results, including 
+   namespace pages and other rendering issues.
 v0.0.4, 3 May 2018 - Refactor handling of Returns and Parameter blocks; streamline
    prototype clean-up, added NYD logic, and take a stab at link rewrites, based on config file.
 v0.0.3, 22 April 2018 - Trying to finalize the prototype parsing rules; rewriting 
