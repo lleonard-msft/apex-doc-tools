@@ -46,6 +46,6 @@ The current implementation is a prototype and will likely change shortly.
 - v0.0.1, 23 February 2018 - Initial prototype completed.
 
 
-Updated: 1 June 2018
+Updated: 3 August 2018
 
 
