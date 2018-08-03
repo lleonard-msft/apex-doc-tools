@@ -1,6 +1,6 @@
 
 // api2pages.js
-// v0.0.4 - 3 May 2018 (Version history follows program code)
+// v0.0.5 - 21 June 2018 (Version history follows program code)
 //
 // A node.js program to support documention projects using
 // Doxygen and Moxygen to generate reference pages in Markdown.
@@ -10,7 +10,6 @@
 //
 // Note: This utility was created because the results of 
 // the other tools needed changes for our publishing system.
-// 
 // 
 // -- lance Leonard (lance.leonard@microsoft.com), 21 Feb 2018
 //
@@ -163,6 +162,10 @@ if ( isBlank( strFilename ) ) {
          continue;
       }
 
+/* Project specific rules go here.  The following are examples and 
+   should be removed. A future version will handle these through 
+   a data configuration process.
+
       // Skip over the two known uses of inline currently in the SDK.
 
       // this appears in /src/api/mip/rms/user_policy.h
@@ -176,7 +179,8 @@ if ( isBlank( strFilename ) ) {
            ( strThisLine.indexOf( "GetAssignmentMethodName" ) > -1 ) ) {
          continue;
       }
-      
+*/
+
       // If we get here, we've decided to keep the line.  Let's see if it's a 
       // Method summary and, if so, clean up the declaration.
       //
@@ -194,7 +198,9 @@ if ( isBlank( strFilename ) ) {
             strLineHelp = strThisLine.substr( intLastPipe + 1 );
             strThisLine = strThisLine.substr( 0, intLastPipe );
 
-            // Note: we need to kill the copyright notices
+            // Note: skip the copyright notices (important for the 
+            // header, not the docs.  Best solution?  Use /* to 
+            // declare them, not /** (This keeps them from being parsed)
             if ( strLineHelp.indexOf(  "Copyright (c) Microsoft Corporation." ) > -1 ) {
                strLineHelp = "";
             }
@@ -211,7 +217,10 @@ if ( isBlank( strFilename ) ) {
 
          var liLinkSepPos = strThisLine.indexOf( '](');
 
-         // Remove all links in the prototype
+         // Remove all links in the prototype. 
+         // 
+         // Note: Originally tried a regex approach; 
+         // too many variations.  This works consistently.)
          while ( liLinkSepPos > -1 ) {
 
             var liLinkBeg = strThisLine.indexOf( '[' );
@@ -237,7 +246,8 @@ if ( isBlank( strFilename ) ) {
 
          // Yes, we're adding a space following the last closing angle bracket.
          var liLastBracket = strNewLine.lastIndexOf( '>' );
-         strThisLine = strNewLine.substr( 0, liLastBracket + 1 ) + " " + strNewLine.substr( liLastBracket + 1);
+         strThisLine = strNewLine.substr( 0, liLastBracket + 1 ) + 
+                       " " + strNewLine.substr( liLastBracket + 1);
 
          strThisLine = cleanupLine( strThisLine, ' * ', '* ');
          strThisLine = cleanupLine( strThisLine, ' *', '*' );
@@ -256,6 +266,8 @@ if ( isBlank( strFilename ) ) {
          
          // Extract the declaration name; note the bit of trickery with the
          // non-standard trimRight().
+         // 
+         // TODO: Review to see if we can't use a more standard approach.
          var strDeclName = strThisDecl.trimRight();
          var liSpacePos = strDeclName.lastIndexOf( ' ' );
          var liOpenParen = strDeclName.indexOf( '(' );
@@ -269,8 +281,8 @@ if ( isBlank( strFilename ) ) {
          oNewDecl.declName = strDeclName;
          oNewDecl.declType = strThisDecl.substr( strThisDecl.indexOf( ' ' ) );
          
-         // Finally, brute force remove 'inline' (Notice we run two checks,
-         // one for a trailing space, one without.)
+         // Finally, brute force remove 'inline' 
+         // 
          // TODO: Refactor this to be less brute-forcey.
          var intPos = strThisDecl.indexOf( ' inline ' );
          if ( intPos > -1 ) {
@@ -303,7 +315,7 @@ if ( isBlank( strFilename ) ) {
       //
       // Note that this also does two other things: it removes the 
       // annoying backticks and chops off the rest of the declaration
-      // (which is why we're using an array, rather than substr).
+      // (which is why it use an array, rather than substr).
       if ( strThisLine.startsWith( '#### `' ) ) {
          var strNewLine = strThisLine.substr( 1 );
          var aryTokens = strThisLine.split( "`");
@@ -463,8 +475,8 @@ if ( isBlank( strFilename ) ) {
       }
       aNewPages[ xPages ].fileName = strFilename.toLowerCase() + ".md";
 
-      // TODO: Add code to detect and handle duplicates. 
-      // TBD
+      // TODO: Add code to detect and handle duplicate filename. 
+      // TBD, as it wasn't a problem in our project.
 
    }
 
@@ -480,7 +492,7 @@ if ( isBlank( strFilename ) ) {
 
    // TODO: Add code to do this during a debug run.
    fs.writeFileSync( "./logs/lastrun.txt", jStr( aNewPages), 'utf-8' );
-   fs.writeFileSync( "./logs/alldecls.txt", jStr( aryAllDecls), 'utf-8' );
+   // fs.writeFileSync( "./logs/alldecls.txt", jStr( aryAllDecls), 'utf-8' );
    fs.writeFileSync( "./linkconfig.json", jStr( oLinkData ), 'utf-8' );
 
 }

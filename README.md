@@ -28,7 +28,7 @@ _Inactive projects:_
 
 There may be interesting bits of code, but most of it is designed to be utilitarian.  These are generally written under deadline pressure and are maintained as needed.  
 
-_Experiments and prototypes_
+_Experiments and prototypes:_
 
 - _camel2sentence_ (pending) takes a resource name written in camel case (ex: "camelCase" ) and inverts the capitals so the result is a traditional sentence style (ex: "Camel case").  (This was later incorporated into _build-graph-toc_.)
 
