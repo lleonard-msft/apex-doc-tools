@@ -1,12 +1,17 @@
 # API.MD to Markdown pages
 
-This utility supports C++ documentation projects created with Doxygen, which is a great parser, but doesn't provide HTML output that easily integrates into other formats or presentations.
+This utility supports C++ documentation projects created with [Doxygen](http://www.stack.nl/~dimitri/doxygen/), which is a great parser, but doesn't provide HTML output that easily integrates into other formats or presentations.
 
-This tool supports Moxygen, a tool that converts Doxygen XML output to one massive Markdown file called `api.md`.  It parses the single files into separate files (by class) and cleans up some rather funky formatting decisions that appear to be hardcoded into Moxygen itself.
+This tool supports [Moxygen](https://github.com/sourcey/moxygen), a tool that converts Doxygen XML output to one massive Markdown file called `api.md`.  
 
-Moxygen was recommended as conversation tool and testing showed we either needed to a) write a new tool or b) massage the output so that it was more suitable for out environment.  We chose the latter and this tool is the result.
+This tool separates the single file into individual files (based on H1) and cleans up some rather funky formatting decisions that appear to be hardcoded into Moxygen itself.  For example, backticks are added to declarations, making it difficult to format them without using custom CSS. 
 
-The project is in active development.
+Moxygen was recommended as conversation tool and testing showed we either needed to a) write a new tool or b) massage the output so that it was more suitable for out environment.  Given time constraints, we chose the latter and this tool is the result.
+
+The project is in active development and should be considered a prototype at this point.  It works for the project it was [designed to support](https://docs.microsoft.com/en-us/azure/information-protection/develop/mip/mip-sdk-reference), 
+however, it's tightly-coupled to the design of that project and its design decisions (future enhancements should reduce that).
+
+When finished, you have a set of .MD files that can be copied to another project. You will likely need to massage the non-class files further to make them suitable for publication.
 
 ## Running the tool
 
@@ -18,18 +23,29 @@ This tool is run as part of a larger process
 
 3.  Run api2pages against the `api.md` file created by moxygen.
 
-    The required command-line parameter should point to the `api.md` file to be processed.
+    The required command-line parameter should point to the `api.md` file to be processed:
 
-4.  Copy the `.\output\*.md` files to the source folder for your publishing process.
+    `$ node api2pages ../../projects/moxygen-output/api.md`
+
+4.  Copy the `./output/*.md` files to the source folder for your publishing process.
 
 ## Managing links
 
 Both Doxygen and Moxygen do some odd things with links, which are basically unusable once they get to `api.md`.  The `link-config.json` file helps manage that by replacing link targets with preferred results.
 
-When new links are detected, they're added to the configuration file and a relevant message is written to the console once the utility finishes.
+When new links are detected, they're added to the end of the configuration file and a relevant message is written to the console once the utility finishes.  When this happens, update the data file to include the replacement targets and then run api-pages again.  To learn more, see `./logs/lastlinks.txt`.  
 
 The current implementation is a prototype and will likely change shortly.  
 
-Updated: 1 June 2018
+## Version history
+
+- v0.0.5, 21 June 2018 - Additional cleanup to improve generation results, including namespace pages and other rendering issues.
+- v0.0.4, 3 May 2018 - Refactor handling of Returns and Parameter blocks; streamline prototype clean-up, added NYD logic, and take a stab at link rewrites, based on config file.
+- v0.0.3, 22 April 2018 - Trying to finalize the prototype parsing rules; rewriting the backtick/useless link removal, and assorted other clean-up.
+- v0.0.2, 18 March 2018 - Adding additional rules to improve clean-up and conversion. 
+- v0.0.1, 23 February 2018 - Initial prototype completed.
+
+
+Updated: 3 August 2018
 
 
