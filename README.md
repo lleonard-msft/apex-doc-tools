@@ -10,7 +10,7 @@ Here's what I've got so far:
 
 _Active projects:_
 
-- [api2pages](./apipages/) supports Moxygen, a utility that converts Doxygen XML output data to a single Markdown file.  My utility parses that output file to separate pages suitable for including in a Microsoft docs project.
+- [api2pages](./api2pages/) supports Moxygen, a utility that converts Doxygen XML output data to a single Markdown file.  My utility parses that output file to separate pages suitable for including in a Microsoft docs project.
 
 - _build-graph-toc_ (pending) supports the Microsoft Graph API for Intune project; it scans a folder of resource object reference pages and creates an table of contents snippet.
 
@@ -24,7 +24,7 @@ _Inactive projects:_
 
 - _hide-todos_ (pending) scans a folder of Markdown files (and any child folders) for "//TODO" sequences; it replaces these with a less cryptic phrase that's more accessible to non-developers. 
 
-- [toc-gather](/.toc-gather) searches a YAML-based TOC file and collects information used to validate the SEO elements in the associated article, including filename, title, H1.  It generates a data file designed to be imported into other tools.
+- [toc-gather](./toc-gather) searches a YAML-based TOC file and collects information used to validate the SEO elements in the associated article, including filename, title, H1.  It generates a data file designed to be imported into other tools.
 
 There may be interesting bits of code, but most of it is designed to be utilitarian.  These are generally written under deadline pressure and are maintained as needed.  
 
